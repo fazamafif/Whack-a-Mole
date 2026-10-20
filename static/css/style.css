@@ -1,0 +1,142 @@
+/* ========================================================
+   WHACK-A-MOLE DELUXE - STYLESHEET
+   ======================================================== */
+
+/* Hammer Custom Cursor */
+.game-board {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='none' stroke='%23d97706' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='14 2 22 10 18 14 10 6 14 2' fill='%23b45309'/><line x1='12' y1='8' x2='2' y2='18' stroke='%2378350f' stroke-width='3'/><line x1='2' y1='22' x2='6' y2='18' stroke='%2378350f' stroke-width='3'/></svg>") 4 4, auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.game-board:active {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='none' stroke='%23ea580c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' transform='rotate(25 12 12)'><polygon points='14 2 22 10 18 14 10 6 14 2' fill='%23c2410c'/><line x1='12' y1='8' x2='2' y2='18' stroke='%2378350f' stroke-width='3'/><line x1='2' y1='22' x2='6' y2='18' stroke='%2378350f' stroke-width='3'/></svg>") 4 4, auto;
+}
+
+/* Hole Container */
+.hole {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50% 50% 45% 45% / 30% 30% 60% 60%;
+  background: radial-gradient(circle at 50% 40%, #1c110a 0%, #2b1810 65%, #140b07 100%);
+  box-shadow: inset 0 10px 15px rgba(0, 0, 0, 0.8),
+              0 6px 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Dirt Mound / Rim in front of Hole */
+.hole .dirt {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 28%;
+  background: linear-gradient(180deg, #5c2c16 0%, #3d1b0c 100%);
+  border-radius: 50% 50% 0 0 / 70% 70% 0 0;
+  border-top: 3px solid #7c3f1d;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Mole Base Styling */
+.mole {
+  position: absolute;
+  bottom: 0;
+  width: 78%;
+  height: 85%;
+  transform: translateY(105%);
+  transition: transform 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+/* Mole Muncul */
+.hole.up .mole {
+  transform: translateY(10%);
+}
+
+/* Efek Ketika Terpukul */
+.mole.whacked {
+  transform: translateY(22%) scale(0.88) rotate(-12deg) !important;
+  filter: brightness(1.2);
+  transition: transform 0.1s ease-out;
+  pointer-events: none;
+}
+
+/* Mole Graphics via SVG background */
+.mole-normal {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110'><ellipse cx='26' cy='32' rx='12' ry='12' fill='%236b3f24'/><ellipse cx='26' cy='32' rx='6' ry='6' fill='%23fca5a5'/><ellipse cx='74' cy='32' rx='12' ry='12' fill='%236b3f24'/><ellipse cx='74' cy='32' rx='6' ry='6' fill='%23fca5a5'/><path d='M20,110 C15,50 25,24 50,24 C75,24 85,50 80,110 Z' fill='%23854d0e'/><ellipse cx='50' cy='68' rx='22' ry='16' fill='%23fef3c7'/><ellipse cx='50' cy='60' rx='8' ry='6' fill='%231f2937'/><ellipse cx='52' cy='58' rx='2.5' ry='2' fill='%23ffffff'/><circle cx='38' cy='48' r='4' fill='%23111827'/><circle cx='40' cy='46' r='1.5' fill='%23ffffff'/><circle cx='62' cy='48' r='4' fill='%23111827'/><circle cx='64' cy='46' r='1.5' fill='%23ffffff'/><ellipse cx='32' cy='56' rx='4' ry='2.5' fill='%23f87171' opacity='0.7'/><ellipse cx='68' cy='56' rx='4' ry='2.5' fill='%23f87171' opacity='0.7'/><path d='M46,65 Q50,69 54,65' stroke='%23374151' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+/* Golden Mole (+25 points) */
+.mole-golden {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110'><polygon points='50,2 58,18 76,8 68,26 84,32 66,38 72,56 50,44 28,56 34,38 16,32 32,26 24,8 42,18' fill='%23fbbf24' stroke='%23b45309' stroke-width='2'/><ellipse cx='26' cy='34' rx='12' ry='12' fill='%23d97706'/><ellipse cx='26' cy='34' rx='6' ry='6' fill='%23fef08a'/><ellipse cx='74' cy='34' rx='12' ry='12' fill='%23d97706'/><ellipse cx='74' cy='34' rx='6' ry='6' fill='%23fef08a'/><path d='M20,110 C15,50 25,24 50,24 C75,24 85,50 80,110 Z' fill='%23eab308'/><ellipse cx='50' cy='68' rx='22' ry='16' fill='%23fef9c3'/><ellipse cx='50' cy='60' rx='8' ry='6' fill='%2378350f'/><ellipse cx='52' cy='58' rx='2.5' ry='2' fill='%23ffffff'/><circle cx='38' cy='48' r='4.5' fill='%23111827'/><circle cx='40' cy='46' r='1.8' fill='%23ffffff'/><circle cx='62' cy='48' r='4.5' fill='%23111827'/><circle cx='64' cy='46' r='1.8' fill='%23ffffff'/><ellipse cx='32' cy='56' rx='4' ry='2.5' fill='%23f59e0b' opacity='0.8'/><ellipse cx='68' cy='56' rx='4' ry='2.5' fill='%23f59e0b' opacity='0.8'/><polygon points='40,16 46,24 50,14 54,24 60,16 57,28 43,28' fill='%23f59e0b' stroke='%2378350f' stroke-width='1.5'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85));
+}
+
+/* Bomb Mole (-15 points) */
+.mole-bomb {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110'><path d='M50,28 Q60,14 74,18' stroke='%23f59e0b' stroke-width='3.5' fill='none' stroke-linecap='round'/><circle cx='74' cy='18' r='4' fill='%23ef4444'/><polygon points='74,12 77,16 82,15 78,19 80,24 75,21 70,23 72,18 67,16 72,14' fill='%23fbbf24'/><rect x='44' y='26' width='12' height='6' rx='2' fill='%23475569'/><circle cx='50' cy='68' r='36' fill='%231e293b'/><circle cx='38' cy='56' r='10' fill='%23334155'/><text x='50' y='76' font-size='26' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23ef4444'>☠</text></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+/* Floating Points Animation */
+.floating-score {
+  position: absolute;
+  pointer-events: none;
+  font-weight: 900;
+  font-size: 1.5rem;
+  z-index: 100;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  animation: floatUp 0.75s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(0.9);
+  }
+  50% {
+    transform: translate(-50%, -24px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -48px) scale(1);
+  }
+}
+
+/* Screen Shake on Bomb Hit */
+.shake-screen {
+  animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-3px, 0, 0); }
+  20%, 80% { transform: translate3d(5px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* Modal Pop Animation */
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pop {
+  animation: pop 0.25s ease-out forwards;
+}
